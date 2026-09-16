@@ -1309,43 +1309,51 @@
   var GCLIENT_ID = GDRIVE_CONFIG.CLIENT_ID;
   var GDRIVE_TOKEN = null;
   var SCOPES = 'https://www.googleapis.com/auth/drive.file';
+  var gapiReady = false;
+  var gapiTokenClient = null;
 
-  function loadGapiScript(cb){
-    if(window.gapi && window.gapi.load){ cb(); return; }
+  function loadGIS(cb){
+    if(window.google && window.google.accounts){ cb(); return; }
     var s = document.createElement('script');
-    s.src = 'https://apis.google.com/js/api.js';
-    s.onload = function(){ gapi.load('client:auth2:picker', cb); };
+    s.src = 'https://accounts.google.com/gsi/client';
+    s.onload = cb;
+    s.onerror = function(){ toast('加载 Google Identity Services 失败', 'error'); };
     document.head.appendChild(s);
   }
 
-  function initGapiClient(cb){
-    loadGapiScript(function(){
-      if(!GAPI_KEY || !GCLIENT_ID){ toast('未配置 Google API，无法使用 Drive 功能', 'error'); return; }
-      gapi.client.init({
-        apiKey: GAPI_KEY,
-        clientId: GCLIENT_ID,
-        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
-        scope: SCOPES
-      }).then(function(){
-        var auth = gapi.auth2.getAuthInstance();
-        if(auth && !auth.isSignedIn.get()){
-          auth.signIn().then(function(resp){
-            GDRIVE_TOKEN = resp.access_token || resp.Zb.access_token;
-            cb(true);
-          }).catch(function(){ toast('Google 登录被取消', 'error'); cb(false); });
-        }else{
-          GDRIVE_TOKEN = auth ? (auth.getAuthInstance().currentUser.get().getAuthResponse().access_token) : null;
-          cb(!!GDRIVE_TOKEN);
-        }
-      }).catch(function(e){
-        toast('Google API 初始化失败: ' + (e.message || e), 'error');
+  function ensureGDriveToken(cb){
+    if(GDRIVE_TOKEN){ cb(true); return; }
+    loadGIS(function(){
+      if(!window.google || !window.google.accounts){
+        toast('Google Identity Services 加载失败', 'error');
         cb(false);
-      });
+        return;
+      }
+      if(!gapiTokenClient){
+        gapiTokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: GCLIENT_ID,
+          scope: SCOPES,
+          callback: function(resp){
+            if(resp && resp.access_token){
+              GDRIVE_TOKEN = resp.access_token;
+              cb(true);
+            }else{
+              toast('Google 登录失败', 'error');
+              cb(false);
+            }
+          },
+          error_callback: function(err){
+            toast('Google 登录被取消', 'error');
+            cb(false);
+          }
+        });
+      }
+      gapiTokenClient.requestAccessToken({ prompt: 'consent' });
     });
   }
 
   function gdriveUpload(filename, json, cb){
-    initGapiClient(function(ok){
+    ensureGDriveToken(function(ok){
       if(!ok) return;
       var metadata = { name: filename, mimeType: 'application/json' };
       var form = new FormData();
@@ -1359,18 +1367,24 @@
       }).then(function(r){ return r.json(); })
         .then(function(r){
           if(r.id){ toast('已保存到 Google Drive：' + filename, 'success'); cb(true); }
-          else{ toast('保存失败：' + (r.error?.message || '未知错误'), 'error'); cb(false); }
-        }).catch(function(e){ toast('上传失败', 'error'); cb(false); });
+          else{
+            if(r.error && r.error.code === 401){ GDRIVE_TOKEN = null; gdriveUpload(filename, json, cb); return; }
+            toast('保存失败：' + (r.error?.message || '未知错误'), 'error'); cb(false);
+          }
+        }).catch(function(){ toast('上传失败', 'error'); cb(false); });
     });
   }
 
   function gdriveListFiles(cb){
-    initGapiClient(function(ok){
+    ensureGDriveToken(function(ok){
       if(!ok) return;
-      fetch('https://www.googleapis.com/drive/v3/files?q=mimeType=%27application/json%27+and+name+contains+%27authlist%27&fields=files(id,name,modifiedTime)&orderBy=modifiedTime%20desc&pageSize=20', {
+      fetch("https://www.googleapis.com/drive/v3/files?q=mimeType='application/json'+and+name+contains+'authlist'&fields=files(id,name,modifiedTime)&orderBy=modifiedTime%20desc&pageSize=20", {
         headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN }
       }).then(function(r){ return r.json(); })
-        .then(function(r){ cb(r.files || []); })
+        .then(function(r){
+          if(r.error && r.error.code === 401){ GDRIVE_TOKEN = null; gdriveListFiles(cb); return; }
+          cb(r.files || []);
+        })
         .catch(function(){ cb([]); });
     });
   }
