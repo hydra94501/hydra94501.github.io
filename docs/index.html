@@ -620,6 +620,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>
         导入
       </button>
+      <button class="btn btn-ghost btn-sm" id="gdriveImportBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Drive 导入
+      </button>
       <input type="file" id="fileInput" accept="application/json,.json">
       <div style="position:relative;">
         <button class="btn btn-ghost btn-sm" id="exportBtn">
@@ -634,6 +638,10 @@
           <button data-mode="clipboard">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>
             复制 JSON 到剪贴板
+          </button>
+          <button data-mode="gdrive-save">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            保存到 Google Drive
           </button>
         </div>
       </div>
@@ -709,6 +717,7 @@
 
 <div class="toasts" id="toasts"></div>
 
+<script src="gdrive-config.js"></script>
 <script>
 (function(){
   'use strict';
@@ -1294,6 +1303,152 @@
 
   /* ---------------- init ---------------- */
   renderGrid();
+
+  /* ---------------- Google Drive ---------------- */
+  var GAPI_KEY = GDRIVE_CONFIG.API_KEY;
+  var GCLIENT_ID = GDRIVE_CONFIG.CLIENT_ID;
+  var GDRIVE_TOKEN = null;
+  var SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+  function loadGapiScript(cb){
+    if(window.gapi && window.gapi.load){ cb(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://apis.google.com/js/api.js';
+    s.onload = function(){ gapi.load('client:auth2:picker', cb); };
+    document.head.appendChild(s);
+  }
+
+  function initGapiClient(cb){
+    loadGapiScript(function(){
+      if(!GAPI_KEY || !GCLIENT_ID){ toast('未配置 Google API，无法使用 Drive 功能', 'error'); return; }
+      gapi.client.init({
+        apiKey: GAPI_KEY,
+        clientId: GCLIENT_ID,
+        discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
+        scope: SCOPES
+      }).then(function(){
+        var auth = gapi.auth2.getAuthInstance();
+        if(auth && !auth.isSignedIn.get()){
+          auth.signIn().then(function(resp){
+            GDRIVE_TOKEN = resp.access_token || resp.Zb.access_token;
+            cb(true);
+          }).catch(function(){ toast('Google 登录被取消', 'error'); cb(false); });
+        }else{
+          GDRIVE_TOKEN = auth ? (auth.getAuthInstance().currentUser.get().getAuthResponse().access_token) : null;
+          cb(!!GDRIVE_TOKEN);
+        }
+      }).catch(function(e){
+        toast('Google API 初始化失败: ' + (e.message || e), 'error');
+        cb(false);
+      });
+    });
+  }
+
+  function gdriveUpload(filename, json, cb){
+    initGapiClient(function(ok){
+      if(!ok) return;
+      var metadata = { name: filename, mimeType: 'application/json' };
+      var form = new FormData();
+      form.append('metadata', new Blob([JSON.stringify(metadata)], {type:'application/json'}));
+      form.append('file', new Blob([json], {type:'application/json'}));
+
+      fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN },
+        body: form
+      }).then(function(r){ return r.json(); })
+        .then(function(r){
+          if(r.id){ toast('已保存到 Google Drive：' + filename, 'success'); cb(true); }
+          else{ toast('保存失败：' + (r.error?.message || '未知错误'), 'error'); cb(false); }
+        }).catch(function(e){ toast('上传失败', 'error'); cb(false); });
+    });
+  }
+
+  function gdriveListFiles(cb){
+    initGapiClient(function(ok){
+      if(!ok) return;
+      fetch('https://www.googleapis.com/drive/v3/files?q=mimeType=%27application/json%27+and+name+contains+%27authlist%27&fields=files(id,name,modifiedTime)&orderBy=modifiedTime%20desc&pageSize=20', {
+        headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN }
+      }).then(function(r){ return r.json(); })
+        .then(function(r){ cb(r.files || []); })
+        .catch(function(){ cb([]); });
+    });
+  }
+
+  function gdriveDownload(fileId, cb){
+    fetch('https://www.googleapis.com/drive/v3/files/' + fileId + '?alt=media', {
+      headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN }
+    }).then(function(r){ return r.text(); })
+      .then(function(t){ cb(t); })
+      .catch(function(){ toast('下载失败', 'error'); cb(null); });
+  }
+
+  exportMenu.addEventListener('click', function(e){
+    var btn = e.target.closest('button');
+    if(!btn) return;
+    if(btn.dataset.mode !== 'gdrive-save') return;
+    exportMenu.classList.remove('open');
+    if(entries.length === 0){ toast('没有可导出的令牌', 'error'); return; }
+    var payload = buildExportPayload();
+    var json = JSON.stringify(payload, null, 2);
+    var d = new Date();
+    var stamp = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+    gdriveUpload('authlist-export-' + stamp + '.json', json);
+  });
+
+  document.getElementById('gdriveImportBtn').addEventListener('click', function(){
+    gdriveListFiles(function(files){
+      if(files.length === 0){ toast('Google Drive 上没有找到 authlist 备份文件', 'info'); return; }
+      var html = '<div style="max-height:300px;overflow-y:auto;">';
+      files.forEach(function(f){
+        html += '<button class="gdrive-file-btn" data-id="'+f.id+'" style="display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;background:var(--bg-soft);color:var(--ink);font-size:12px;cursor:pointer;transition:border-color .15s;">'+
+          '<div style="font-weight:600;margin-bottom:3px;">'+escapeHtml(f.name)+'</div>'+
+          '<div style="color:var(--ink-faint);font-size:10px;">'+(f.modifiedTime||'')+'</div>'+
+          '</button>';
+      });
+      html += '</div>';
+
+      var overlay = document.createElement('div');
+      overlay.className = 'overlay open';
+      overlay.innerHTML = '<div class="modal"><h3>选择 Google Drive 文件<span class="x close-gdrive-picker"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span></h3>'+html+'</div>';
+      document.body.appendChild(overlay);
+
+      overlay.querySelector('.close-gdrive-picker').addEventListener('click', function(){ overlay.remove(); });
+      overlay.addEventListener('click', function(e){ if(e.target === overlay) overlay.remove(); });
+
+      overlay.querySelectorAll('.gdrive-file-btn').forEach(function(b){
+        b.addEventListener('click', function(){
+          overlay.remove();
+          gdriveDownload(b.dataset.id, function(text){
+            if(!text) return;
+            try{
+              var data = JSON.parse(text);
+              var list = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : null);
+              if(!list) throw new Error('bad');
+              var added = 0, skipped = 0;
+              list.forEach(function(item){
+                if(!item || !item.secret){ skipped++; return; }
+                var cleanSecret = String(item.secret).toUpperCase().replace(/\s+/g,'');
+                if(!isValidSecret(cleanSecret)){ skipped++; return; }
+                var account = (item.account || item.label || '').trim();
+                var dup = entries.some(function(e){ return e.secret === cleanSecret && e.account === account; });
+                if(dup){ skipped++; return; }
+                entries.push({
+                  id: generateId(), issuer: (item.issuer||'').trim(), account: account, secret: cleanSecret,
+                  digits: item.digits===8?8:6, period: (Number(item.period)>0)?Number(item.period):30,
+                  algorithm: ['SHA-1','SHA-256','SHA-512'].indexOf(item.algorithm)!==-1?item.algorithm:DEFAULT_ALGO,
+                  createdAt: Date.now()
+                });
+                added++;
+              });
+              saveEntries(); renderGrid();
+              toast('导入完成：新增 '+added+' 条'+(skipped?'，跳过 '+skipped+' 条':''), added?'success':'info');
+            }catch(err){ toast('导入失败：文件格式不正确', 'error'); }
+          });
+        });
+      });
+    });
+  });
 })();
 </script>
 </body>
