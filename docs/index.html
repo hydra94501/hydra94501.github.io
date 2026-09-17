@@ -1378,7 +1378,9 @@
   function gdriveListFiles(cb){
     ensureGDriveToken(function(ok){
       if(!ok) return;
-      fetch("https://www.googleapis.com/drive/v3/files?q=mimeType='application/json'+and+name+contains+'authlist'&fields=files(id,name,modifiedTime)&orderBy=modifiedTime%20desc&pageSize=20", {
+      var q = "mimeType='application/json' and name contains 'authlist'";
+      var params = new URLSearchParams({ q: q, fields: 'files(id,name,modifiedTime)', orderBy: 'modifiedTime desc', pageSize: '20' });
+      fetch('https://www.googleapis.com/drive/v3/files?' + params.toString(), {
         headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN }
       }).then(function(r){ return r.json(); })
         .then(function(r){
