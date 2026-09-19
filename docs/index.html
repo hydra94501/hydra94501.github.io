@@ -591,6 +591,150 @@
     letter-spacing:0.03em;
   }
 
+  /* ---------- SSH card ---------- */
+  .ssh-card{
+    background:linear-gradient(165deg, var(--panel-raised) 0%, var(--panel) 100%);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:18px 18px 14px;
+    box-shadow:var(--shadow-card);
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    animation:rise .35s ease backwards;
+  }
+  .ssh-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(169,125,171,0.35);
+    box-shadow:0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 40px -16px rgba(0,0,0,0.7);
+  }
+  .ssh-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .ssh-card-id{display:flex;gap:10px;align-items:flex-start;min-width:0;}
+  .ssh-badge{
+    width:36px;height:36px;
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15px;
+    flex-shrink:0;
+    border:1px solid;
+  }
+  .ssh-id-text{min-width:0;}
+  .ssh-id-text .name{
+    font-family:var(--font-display);
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .ssh-id-text .host{
+    font-size:11.5px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:2px;
+  }
+  .ssh-card-conn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:12px;
+    padding:10px 12px;
+    background:rgba(0,0,0,0.18);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    color:var(--accent);
+    font-family:var(--font-mono);
+    font-size:12px;
+    text-decoration:none;
+    transition:border-color .15s, background .15s, color .15s;
+  }
+  .ssh-card-conn:hover{border-color:var(--border-strong);background:rgba(0,0,0,0.28);color:var(--ink);}
+  .ssh-card-conn svg{width:14px;height:14px;stroke:currentColor;flex-shrink:0;}
+  .ssh-card-conn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ssh-pass-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:8px;
+    padding:10px 12px;
+    background:rgba(0,0,0,0.18);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+  }
+  .ssh-pass-label{
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    min-width:60px;
+  }
+  .ssh-pass-value{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--ink);
+    letter-spacing:0.02em;
+  }
+  .ssh-pass-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;
+    border-radius:8px;
+    border:1px solid var(--border-strong);
+    background:var(--panel);
+    color:var(--ink-dim);
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .ssh-pass-toggle svg{width:14px;height:14px;stroke:currentColor;}
+  .ssh-pass-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .ssh-copy-btn{
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;
+    border-radius:8px;
+    border:1px solid var(--border-strong);
+    background:var(--panel);
+    color:var(--ink-dim);
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .ssh-copy-btn svg{width:14px;height:14px;stroke:currentColor;}
+  .ssh-copy-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .ssh-copy-btn.done{color:var(--success);border-color:var(--success);background:var(--success-soft);}
+  .ssh-card-foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:10px;
+  }
+  .ssh-tags{
+    font-size:10px;
+    color:var(--ink-faint);
+    letter-spacing:0.03em;
+  }
+  .ssh-card-tools{display:flex;gap:6px;margin-left:auto;}
+  .ssh-key-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:10px;
+    padding:2px 6px;
+    border-radius:4px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border:1px solid var(--border-strong);
+    margin-right:6px;
+  }
+
   /* ---------- Empty state ---------- */
   .empty{
     grid-column:1/-1;
@@ -772,7 +916,7 @@
     <div class="top-actions">
       <div class="search-box">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="searchInput" type="text" placeholder="搜索发行方或账户…">
+        <input id="searchInput" type="text" placeholder="搜索名称、主机、账户…">
       </div>
       <button class="btn btn-primary" id="addBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
@@ -790,6 +934,10 @@
       <button class="tab-btn" data-tab="web" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3M21 3v6h-6"/></svg>
         网址账号
+      </button>
+      <button class="tab-btn" data-tab="ssh" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M6 12h12M10 8v8"/></svg>
+        SSH 主机
       </button>
     </div>
     <div class="count-pill" id="countPill">共 <b>0</b> 个条目</div>
@@ -812,6 +960,15 @@
           <button data-mode="clipboard">
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>
             复制 JSON 到剪贴板
+          </button>
+          <hr style="margin:6px 0;border:0;border-top:1px solid var(--border);">
+          <button data-mode="ssh-config">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+            导出 .ssh/config
+          </button>
+          <button data-mode="ssh-script">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3v12M7 8l5 5 5-5M4 21h16"/></svg>
+            导出登录脚本
           </button>
         </div>
       </div>
@@ -912,6 +1069,54 @@
   </div>
 </div>
 
+<!-- Add / Edit SSH Host modal -->
+<div class="overlay" id="sshFormOverlay">
+  <div class="modal">
+    <h3><span id="sshFormTitle">新增 SSH 主机</span><span class="x" id="sshFormClose"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span></h3>
+    <form id="sshHostForm">
+      <div class="field" id="sf-name">
+        <label>名称 / 标签</label>
+        <input type="text" id="in-ssh-name" placeholder="例如 生产服务器、跳板机、GitHub">
+      </div>
+      <div class="field" id="sf-host">
+        <label>主机地址</label>
+        <input type="text" id="in-ssh-host" placeholder="192.168.1.100 或 example.com">
+        <div class="err-text">请填写主机地址</div>
+      </div>
+      <div class="field" id="sf-port" style="margin-bottom:0;">
+        <label>端口</label>
+        <input type="number" id="in-ssh-port" value="22" min="1" max="65535">
+      </div>
+      <div class="field" id="sf-user">
+        <label>用户名</label>
+        <input type="text" id="in-ssh-user" placeholder="root、ubuntu、admin">
+      </div>
+      <div class="field" id="sf-key">
+        <label>密钥路径（可选，用于免密登录）</label>
+        <input type="text" id="in-ssh-key" placeholder="~/.ssh/id_rsa_prod 或 C:\\Users\\name\\.ssh\\id_rsa">
+        <div class="hint">留空则使用密码登录；填写后生成的 ssh:// 链接会附带 -i 参数提示</div>
+      </div>
+      <div class="field" id="sf-password">
+        <label>密码（可选，明文存储）</label>
+        <div style="display:flex;gap:8px;">
+          <input type="password" id="in-ssh-password" placeholder="输入密码" style="flex:1;">
+          <button type="button" class="icon-btn" id="toggleSshPass" aria-label="显示/隐藏密码">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="field" id="sf-tags">
+        <label>标签（可选，逗号分隔）</label>
+        <input type="text" id="in-ssh-tags" placeholder="生产环境,跳板机,数据库">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="sshFormCancel">取消</button>
+        <button type="submit" class="btn btn-primary" id="sshFormSave">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Delete confirm modal -->
 <div class="overlay" id="confirmOverlay">
   <div class="modal confirm">
@@ -932,6 +1137,7 @@
 
   var STORE_KEY_TOTP = 'authlist.entries.v1';
   var STORE_KEY_WEB = 'authlist.webcreds.v1';
+  var STORE_KEY_SSH = 'authlist.sshhosts.v1';
   var DEFAULT_ALGO = 'SHA-1';
   var BADGE_PALETTE = ['#d99a4e','#c5533f','#8caf6f','#6f9bb0','#a97dab','#b0975f','#c98a6b','#7fae9e'];
 
@@ -958,9 +1164,21 @@
   function saveWebEntries(){
     localStorage.setItem(STORE_KEY_WEB, JSON.stringify(webEntries));
   }
+  function loadSshEntries(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY_SSH);
+      if(!raw) return [];
+      var data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    }catch(e){ return []; }
+  }
+  function saveSshEntries(){
+    localStorage.setItem(STORE_KEY_SSH, JSON.stringify(sshEntries));
+  }
 
   var totpEntries = loadTotpEntries();
   var webEntries = loadWebEntries();
+  var sshEntries = loadSshEntries();
   var currentTab = 'totp';
 
   /* ---------------- base32 / otp ---------------- */
@@ -1065,10 +1283,14 @@
   }
 
   function getCurrentEntries(){
-    return currentTab === 'totp' ? totpEntries : webEntries;
+    if(currentTab === 'totp') return totpEntries;
+    if(currentTab === 'web') return webEntries;
+    return sshEntries;
   }
   function getCurrentSaveFn(){
-    return currentTab === 'totp' ? saveTotpEntries : saveWebEntries;
+    if(currentTab === 'totp') return saveTotpEntries;
+    if(currentTab === 'web') return saveWebEntries;
+    return saveSshEntries;
   }
 
   /* ---------------- toasts ---------------- */
@@ -1251,6 +1473,117 @@
     return ref;
   }
 
+  function buildSshCard(entry){
+    var card = document.createElement('div');
+    card.className = 'ssh-card';
+    card.dataset.id = entry.id;
+
+    var color = hashColor(entry.name || entry.host);
+    var letter = (entry.name || entry.host || '?').trim().charAt(0).toUpperCase();
+
+    var displayHost = entry.host;
+    if(displayHost.length > 40) displayHost = displayHost.slice(0, 40) + '…';
+
+    var connStr = 'ssh://' + (entry.user ? entry.user + '@' : '') + entry.host + (entry.port && entry.port !== '22' ? ':' + entry.port : '');
+    var maskedPassword = entry.password ? '•'.repeat(entry.password.length) : '';
+    var userId = 'susr-' + entry.id;
+    var passId = 'spwd-' + entry.id;
+    var keyId = 'skey-' + entry.id;
+
+    var hasKey = entry.key && entry.key.trim().length > 0;
+
+    card.innerHTML =
+      '<div class="ssh-card-head">'+
+        '<div class="ssh-card-id">'+
+          '<div class="ssh-badge" style="background:'+color+'22;border-color:'+color+'55;color:'+color+';">'+escapeHtml(letter)+'</div>'+
+          '<div class="ssh-id-text">'+
+            '<div class="name">'+escapeHtml(entry.name || '未命名')+'</div>'+
+            '<div class="host">'+escapeHtml(displayHost) + (entry.port && entry.port !== '22' ? ':' + entry.port : '') + (entry.user ? ' (' + escapeHtml(entry.user) + ')' : '')+'</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+      '<a class="ssh-card-conn" href="'+escapeHtml(connStr)+'" target="_blank" rel="noopener noreferrer" title="点击尝试调用本地 SSH 客户端">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M6 12h12M10 8v8"/></svg>'+
+        '<span>'+escapeHtml(connStr)+'</span>'+
+      '</a>'+
+      (entry.user ? '<div class="ssh-pass-row">'+
+        '<span class="ssh-pass-label">用户名</span>'+
+        '<span class="ssh-pass-value" id="'+userId+'">'+escapeHtml(entry.user)+'</span>'+
+        '<button class="ssh-copy-btn" type="button" data-target="'+userId+'" data-value="'+escapeHtml(entry.user)+'" aria-label="复制用户名">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>'+
+        '</button>'+
+      '</div>' : '')+
+      (entry.password ? '<div class="ssh-pass-row">'+
+        '<span class="ssh-pass-label">密码</span>'+
+        '<span class="ssh-pass-value" id="'+passId+'">'+escapeHtml(maskedPassword)+'</span>'+
+        '<button class="ssh-pass-toggle" type="button" data-target="'+passId+'" data-value="'+escapeHtml(entry.password)+'" aria-label="显示/隐藏密码">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'+
+        '</button>'+
+        '<button class="ssh-copy-btn" type="button" data-target="'+passId+'" data-value="'+escapeHtml(entry.password)+'" aria-label="复制密码">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>'+
+        '</button>'+
+      '</div>' : '')+
+      (hasKey ? '<div class="ssh-pass-row">'+
+        '<span class="ssh-pass-label">密钥</span>'+
+        '<span class="ssh-pass-value" id="'+keyId+'" style="font-size:11px;">'+escapeHtml(entry.key)+'</span>'+
+        '<button class="ssh-copy-btn" type="button" data-target="'+keyId+'" data-value="'+escapeHtml(entry.key)+'" aria-label="复制密钥路径">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>'+
+        '</button>'+
+      '</div>' : '')+
+      '<div class="ssh-card-foot">'+
+        '<div class="ssh-tags">ID '+entry.id.slice(0,6)+ (entry.tags ? ' · ' + escapeHtml(entry.tags) : '')+'</div>'+
+        '<div class="card-tools ssh-card-tools">'+
+          (hasKey ? '<span class="ssh-key-badge">密钥登录</span>' : '')+
+          '<button class="icon-btn edit" type="button" aria-label="编辑"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button>'+
+          '<button class="icon-btn del" type="button" aria-label="删除"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>'+
+        '</div>'+
+      '</div>';
+
+    var ref = {
+      entry: entry,
+      cardEl: card,
+    };
+
+    card.querySelector('.edit').addEventListener('click', function(e){ e.stopPropagation(); openSshForm(entry); });
+    card.querySelector('.del').addEventListener('click', function(e){ e.stopPropagation(); openConfirmSsh(entry); });
+
+    card.querySelectorAll('.ssh-pass-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var targetId = this.dataset.target;
+        var realValue = this.dataset.value;
+        var targetEl = document.getElementById(targetId);
+        var isHidden = targetEl.textContent.indexOf('•') === 0;
+        if(isHidden){
+          targetEl.textContent = realValue;
+          targetEl.style.fontFamily = 'var(--font-mono)';
+        }else{
+          targetEl.textContent = '•'.repeat(realValue.length);
+          targetEl.style.fontFamily = 'var(--font-mono)';
+        }
+      });
+    });
+
+    card.querySelectorAll('.ssh-copy-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var value = this.dataset.value;
+        var done = function(){
+          btn.classList.add('done');
+          toast('已复制', 'success');
+          setTimeout(function(){ btn.classList.remove('done'); }, 1200);
+        };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(value).then(done).catch(function(){ fallbackCopy(value, done); });
+        }else{
+          fallbackCopy(value, done);
+        }
+      });
+    });
+
+    return ref;
+  }
+
   function copyCode(ref){
     if(!ref.currentCode) return;
     var text = ref.currentCode;
@@ -1283,8 +1616,10 @@
       if(!q) return true;
       if(currentTab === 'totp'){
         return (e.issuer||'').toLowerCase().indexOf(q) !== -1 || (e.account||'').toLowerCase().indexOf(q) !== -1;
-      }else{
+      }else if(currentTab === 'web'){
         return (e.name||'').toLowerCase().indexOf(q) !== -1 || (e.url||'').toLowerCase().indexOf(q) !== -1 || (e.username||'').toLowerCase().indexOf(q) !== -1;
+      }else{
+        return (e.name||'').toLowerCase().indexOf(q) !== -1 || (e.host||'').toLowerCase().indexOf(q) !== -1 || (e.user||'').toLowerCase().indexOf(q) !== -1 || (e.tags||'').toLowerCase().indexOf(q) !== -1;
       }
     });
     list.sort(function(a,b){
@@ -1292,9 +1627,12 @@
       if(currentTab === 'totp'){
         an = (a.issuer||'') + a.account;
         bn = (b.issuer||'') + b.account;
-      }else{
+      }else if(currentTab === 'web'){
         an = (a.name||'') + a.url;
         bn = (b.name||'') + b.url;
+      }else{
+        an = (a.name||'') + a.host;
+        bn = (b.name||'') + b.host;
       }
       return an.localeCompare(bn, 'zh');
     });
@@ -1307,7 +1645,8 @@
     var list = sortedFiltered();
 
     var total = getCurrentEntries().length;
-    countPill.innerHTML = '共 <b>' + total + '</b> 个' + (currentTab === 'totp' ? ' 令牌' : ' 条目');
+    var label = currentTab === 'totp' ? ' 令牌' : (currentTab === 'web' ? ' 条目' : ' 主机');
+    countPill.innerHTML = '共 <b>' + total + '</b> 个' + label;
 
     if(total === 0){
       if(currentTab === 'totp'){
@@ -1323,7 +1662,7 @@
           '</div>';
         document.getElementById('emptyAdd').addEventListener('click', function(){ openForm(null); });
         document.getElementById('emptyImport').addEventListener('click', function(){ document.getElementById('fileInput').click(); });
-      }else{
+      }else if(currentTab === 'web'){
         gridEl.innerHTML =
           '<div class="empty">'+
             '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3M21 3v6h-6"/></svg>'+
@@ -1336,6 +1675,19 @@
           '</div>';
         document.getElementById('emptyAddWeb').addEventListener('click', function(){ openWebForm(null); });
         document.getElementById('emptyImportWeb').addEventListener('click', function(){ document.getElementById('fileInput').click(); });
+      }else{
+        gridEl.innerHTML =
+          '<div class="empty">'+
+            '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M6 12h12M10 8v8"/></svg>'+
+            '<h2>还没有任何 SSH 主机</h2>'+
+            '<p>新增一个 SSH 主机，支持保存主机、端口、用户名、密码、密钥路径，点击连接可调用本地 SSH 客户端。</p>'+
+            '<div class="actions">'+
+              '<button class="btn btn-primary" id="emptyAddSsh">新增 SSH 主机</button>'+
+              '<button class="btn btn-ghost" id="emptyImportSsh">导入 JSON</button>'+
+            '</div>'+
+          '</div>';
+        document.getElementById('emptyAddSsh').addEventListener('click', function(){ openSshForm(null); });
+        document.getElementById('emptyImportSsh').addEventListener('click', function(){ document.getElementById('fileInput').click(); });
       }
       return;
     }
@@ -1346,7 +1698,10 @@
     }
 
     list.forEach(function(entry, idx){
-      var ref = currentTab === 'totp' ? buildTotpCard(entry) : buildWebCard(entry);
+      var ref;
+      if(currentTab === 'totp') ref = buildTotpCard(entry);
+      else if(currentTab === 'web') ref = buildWebCard(entry);
+      else ref = buildSshCard(entry);
       ref.cardEl.style.animationDelay = (idx * 22) + 'ms';
       gridEl.appendChild(ref.cardEl);
       cardRefs.set(entry.id, ref);
@@ -1455,7 +1810,8 @@
   }
   document.getElementById('addBtn').addEventListener('click', function(){ 
     if(currentTab === 'totp') openForm(null); 
-    else openWebForm(null); 
+    else if(currentTab === 'web') openWebForm(null); 
+    else openSshForm(null); 
   });
   document.getElementById('formClose').addEventListener('click', closeForm);
   document.getElementById('formCancel').addEventListener('click', closeForm);
@@ -1663,10 +2019,139 @@
     toast('已删除网址账号', 'info');
   });
 
+  /* ---------------- SSH host form ---------------- */
+  var sshFormOverlay = document.getElementById('sshFormOverlay');
+  var sshFormTitle = document.getElementById('sshFormTitle');
+  var sshHostForm = document.getElementById('sshHostForm');
+  var inSshName = document.getElementById('in-ssh-name');
+  var inSshHost = document.getElementById('in-ssh-host');
+  var inSshPort = document.getElementById('in-ssh-port');
+  var inSshUser = document.getElementById('in-ssh-user');
+  var inSshKey = document.getElementById('in-ssh-key');
+  var inSshPassword = document.getElementById('in-ssh-password');
+  var inSshTags = document.getElementById('in-ssh-tags');
+  var toggleSshPass = document.getElementById('toggleSshPass');
+  var sshEditingId = null;
+  var sshLastFocused = null;
+
+  toggleSshPass.addEventListener('click', function(){
+    var type = inSshPassword.type === 'password' ? 'text' : 'password';
+    inSshPassword.type = type;
+  });
+
+  function openSshForm(entry){
+    sshLastFocused = document.activeElement;
+    sshEditingId = entry ? entry.id : null;
+    sshFormTitle.textContent = entry ? '编辑 SSH 主机' : '新增 SSH 主机';
+    document.getElementById('sf-host').classList.remove('invalid');
+
+    if(entry){
+      inSshName.value = entry.name || '';
+      inSshHost.value = entry.host || '';
+      inSshPort.value = entry.port || '22';
+      inSshUser.value = entry.user || '';
+      inSshKey.value = entry.key || '';
+      inSshPassword.value = entry.password || '';
+      inSshTags.value = entry.tags || '';
+    }else{
+      inSshName.value = '';
+      inSshHost.value = '';
+      inSshPort.value = '22';
+      inSshUser.value = '';
+      inSshKey.value = '';
+      inSshPassword.value = '';
+      inSshTags.value = '';
+    }
+
+    sshFormOverlay.classList.add('open');
+    setTimeout(function(){ inSshName.focus(); }, 50);
+  }
+  function closeSshForm(){
+    sshFormOverlay.classList.remove('open');
+    if(sshLastFocused) sshLastFocused.focus();
+  }
+  document.getElementById('sshFormClose').addEventListener('click', closeSshForm);
+  document.getElementById('sshFormCancel').addEventListener('click', closeSshForm);
+  sshFormOverlay.addEventListener('click', function(e){ if(e.target === sshFormOverlay) closeSshForm(); });
+
+  sshHostForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = inSshName.value.trim();
+    var host = inSshHost.value.trim();
+    var port = inSshPort.value.trim();
+    var user = inSshUser.value.trim();
+    var key = inSshKey.value.trim();
+    var password = inSshPassword.value;
+    var tags = inSshTags.value.trim();
+
+    var hostOk = host.length > 0;
+    document.getElementById('sf-host').classList.toggle('invalid', !hostOk);
+    if(!hostOk) return;
+    if(port && (parseInt(port) < 1 || parseInt(port) > 65535)){
+      toast('端口范围 1-65535', 'error');
+      return;
+    }
+
+    if(sshEditingId){
+      var existing = sshEntries.find(function(e){ return e.id === sshEditingId; });
+      if(existing){
+        existing.name = name;
+        existing.host = host;
+        existing.port = port || '22';
+        existing.user = user;
+        existing.key = key;
+        existing.password = password;
+        existing.tags = tags;
+      }
+      toast('已更新 SSH 主机', 'success');
+    }else{
+      sshEntries.push({
+        id: generateId(),
+        name: name,
+        host: host,
+        port: port || '22',
+        user: user,
+        key: key,
+        password: password,
+        tags: tags,
+        createdAt: Date.now()
+      });
+      toast('已新增 SSH 主机', 'success');
+    }
+    saveSshEntries();
+    closeSshForm();
+    renderGrid();
+  });
+
+  /* ---------------- delete confirm SSH ---------------- */
+  var pendingDeleteSshId = null;
+
+  function openConfirmSsh(entry){
+    pendingDeleteSshId = entry.id;
+    confirmNameWeb.textContent = entry.name || entry.host;
+    confirmOverlayWeb.classList.add('open');
+  }
+  function closeConfirmSsh(){
+    confirmOverlayWeb.classList.remove('open');
+    pendingDeleteSshId = null;
+  }
+  document.getElementById('confirmClose').addEventListener('click', closeConfirmSsh);
+  document.getElementById('confirmCancel').addEventListener('click', closeConfirmSsh);
+  confirmOverlayWeb.addEventListener('click', function(e){ if(e.target === confirmOverlayWeb) closeConfirmSsh(); });
+  document.getElementById('confirmDelete').addEventListener('click', function(){
+    if(!pendingDeleteSshId) return;
+    sshEntries = sshEntries.filter(function(e){ return e.id !== pendingDeleteSshId; });
+    saveSshEntries();
+    closeConfirmSsh();
+    renderGrid();
+    toast('已删除 SSH 主机', 'info');
+  });
+
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){
       if(formOverlay.classList.contains('open')) closeForm();
       if(webFormOverlay.classList.contains('open')) closeWebForm();
+      if(sshFormOverlay.classList.contains('open')) closeSshForm();
       if(confirmOverlay.classList.contains('open')) closeConfirm();
       exportMenu.classList.remove('open');
     }
@@ -1717,38 +2202,142 @@
           password: e.password,
           notes: e.notes
         };
+      }),
+      ssh: sshEntries.map(function(e){
+        return {
+          name: e.name,
+          host: e.host,
+          port: e.port,
+          user: e.user,
+          key: e.key,
+          password: e.password,
+          tags: e.tags
+        };
       })
     };
+  }
+
+  function buildSshConfig(){
+    if(sshEntries.length === 0) return '';
+    var lines = ['# SSH Config generated by 密钥库', '# Date: ' + new Date().toISOString(), ''];
+    sshEntries.forEach(function(e){
+      var hostAlias = (e.name || e.host).replace(/[^a-zA-Z0-9_-]/g, '-');
+      lines.push('Host ' + hostAlias);
+      lines.push('    HostName ' + e.host);
+      if(e.port && e.port !== '22') lines.push('    Port ' + e.port);
+      if(e.user) lines.push('    User ' + e.user);
+      if(e.key) lines.push('    IdentityFile ' + e.key);
+      lines.push('    # Password: ' + (e.password ? '(stored in app)' : '(none)'));
+      lines.push('');
+    });
+    return lines.join('\n');
+  }
+
+  function buildSshScript(){
+    if(sshEntries.length === 0) return '';
+    var isWin = navigator.platform.indexOf('Win') === 0;
+    var ext = isWin ? '.bat' : '.sh';
+    var lines = [];
+    if(isWin){
+      lines.push('@echo off');
+      lines.push('rem SSH Login Scripts generated by 密钥库');
+      lines.push('rem Date: ' + new Date().toISOString());
+      lines.push('');
+      sshEntries.forEach(function(e){
+        var hostAlias = (e.name || e.host).replace(/[^a-zA-Z0-9_-]/g, '-');
+        var cmd = 'ssh';
+        if(e.user) cmd += ' ' + e.user + '@' + e.host;
+        else cmd += ' ' + e.host;
+        if(e.port && e.port !== '22') cmd += ' -p ' + e.port;
+        if(e.key) cmd += ' -i "' + e.key.replace(/\\/g, '\\\\') + '"';
+        lines.push('echo 连接 ' + hostAlias + ' (' + e.host + ')');
+        lines.push(cmd);
+        lines.push('');
+      });
+      lines.push('pause');
+    }else{
+      lines.push('#!/bin/bash');
+      lines.push('# SSH Login Scripts generated by 密钥库');
+      lines.push('# Date: ' + new Date().toISOString());
+      lines.push('');
+      sshEntries.forEach(function(e){
+        var hostAlias = (e.name || e.host).replace(/[^a-zA-Z0-9_-]/g, '-');
+        var cmd = 'ssh';
+        if(e.user) cmd += ' ' + e.user + '@' + e.host;
+        else cmd += ' ' + e.host;
+        if(e.port && e.port !== '22') cmd += ' -p ' + e.port;
+        if(e.key) cmd += ' -i "' + e.key + '"';
+        lines.push('echo "连接 ' + hostAlias + ' (' + e.host + ')"');
+        lines.push(cmd);
+        lines.push('');
+      });
+    }
+    return lines.join('\n');
   }
 
   exportMenu.addEventListener('click', function(e){
     var btn = e.target.closest('button');
     if(!btn) return;
     exportMenu.classList.remove('open');
-    var total = totpEntries.length + webEntries.length;
+    var total = totpEntries.length + webEntries.length + sshEntries.length;
     if(total === 0){ toast('没有可导出的数据', 'error'); return; }
-    var payload = buildExportPayload();
-    var json = JSON.stringify(payload, null, 2);
-    if(btn.dataset.mode === 'download'){
-      var blob = new Blob([json], {type:'application/json'});
+    var mode = btn.dataset.mode;
+    if(mode === 'download' || mode === 'clipboard'){
+      var payload = buildExportPayload();
+      var json = JSON.stringify(payload, null, 2);
+      if(mode === 'download'){
+        var blob = new Blob([json], {type:'application/json'});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        var d = new Date();
+        var stamp = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+        a.href = url;
+        a.download = 'authlist-export-' + stamp + '.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        toast('已下载 JSON 文件，共 ' + totpEntries.length + ' 令牌 + ' + webEntries.length + ' 网址账号 + ' + sshEntries.length + ' SSH主机', 'success');
+      }else{
+        var done = function(){ toast('已复制 JSON 到剪贴板', 'success'); };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(json).then(done).catch(function(){ fallbackCopy(json, done); });
+        }else{
+          fallbackCopy(json, done);
+        }
+      }
+    }else if(mode === 'ssh-config'){
+      if(sshEntries.length === 0){ toast('没有 SSH 主机可导出', 'error'); return; }
+      var content = buildSshConfig();
+      var blob = new Blob([content], {type:'text/plain'});
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       var d = new Date();
       var stamp = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
       a.href = url;
-      a.download = 'authlist-export-' + stamp + '.json';
+      a.download = 'ssh-config-' + stamp + '.txt';
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      toast('已下载 JSON 文件，共 ' + totpEntries.length + ' 令牌 + ' + webEntries.length + ' 网址账号', 'success');
-    }else{
-      var done = function(){ toast('已复制 JSON 到剪贴板', 'success'); };
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(json).then(done).catch(function(){ fallbackCopy(json, done); });
-      }else{
-        fallbackCopy(json, done);
-      }
+      toast('已导出 .ssh/config 文件', 'success');
+    }else if(mode === 'ssh-script'){
+      if(sshEntries.length === 0){ toast('没有 SSH 主机可导出', 'error'); return; }
+      var content = buildSshScript();
+      var isWin = navigator.platform.indexOf('Win') === 0;
+      var ext = isWin ? '.bat' : '.sh';
+      var blob = new Blob([content], {type:'text/plain'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      var d = new Date();
+      var stamp = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
+      a.href = url;
+      a.download = 'ssh-login-' + stamp + ext;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      toast('已导出登录脚本 (' + ext + ')', 'success');
     }
   });
 
@@ -1762,10 +2351,11 @@
     reader.onload = function(){
       try{
         var data = JSON.parse(reader.result);
-        var addedTotp = 0, addedWeb = 0, skipped = 0;
+        var addedTotp = 0, addedWeb = 0, addedSsh = 0, skipped = 0;
         
         var totpList = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : (data && Array.isArray(data.totp) ? data.totp : []));
         var webList = data && Array.isArray(data.web) ? data.web : [];
+        var sshList = data && Array.isArray(data.ssh) ? data.ssh : [];
         
         totpList.forEach(function(item){
           if(!item || !item.secret){ skipped++; return; }
@@ -1803,13 +2393,34 @@
           addedWeb++;
         });
         
+        sshList.forEach(function(item){
+          if(!item || !item.host){ skipped++; return; }
+          var importPort = String(item.port || '22');
+          var dup = sshEntries.some(function(e){ return e.host === item.host && e.user === (item.user || '') && String(e.port) === importPort; });
+          if(dup){ skipped++; return; }
+          sshEntries.push({
+            id: generateId(),
+            name: (item.name || '').trim(),
+            host: item.host.trim(),
+            port: importPort,
+            user: (item.user || '').trim(),
+            key: (item.key || '').trim(),
+            password: item.password || '',
+            tags: (item.tags || '').trim(),
+            createdAt: Date.now()
+          });
+          addedSsh++;
+        });
+        
         saveTotpEntries();
         saveWebEntries();
+        saveSshEntries();
         renderGrid();
         var msg = '导入完成：新增 ' + addedTotp + ' 令牌';
         if(addedWeb) msg += '，' + addedWeb + ' 网址账号';
+        if(addedSsh) msg += '，' + addedSsh + ' SSH主机';
         if(skipped) msg += '，跳过 ' + skipped + ' 条';
-        toast(msg, (addedTotp || addedWeb) ? 'success' : 'info');
+        toast(msg, (addedTotp || addedWeb || addedSsh) ? 'success' : 'info');
       }catch(err){
         toast('导入失败：文件格式不正确', 'error');
       }
