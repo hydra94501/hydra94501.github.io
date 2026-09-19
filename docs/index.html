@@ -205,6 +205,34 @@
   .btn-sm{padding:7px 11px;font-size:12px;border-radius:var(--radius-sm);}
   .btn[disabled]{opacity:0.4;cursor:not-allowed;transform:none !important;}
 
+  /* ---------- Tabs ---------- */
+  .tabs{
+    display:flex;
+    gap:4px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:4px;
+  }
+  .tab-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:8px 14px;
+    border-radius:var(--radius-sm);
+    border:none;
+    background:transparent;
+    color:var(--ink-dim);
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    font-weight:500;
+    cursor:pointer;
+    transition:color .15s, background .15s;
+  }
+  .tab-btn svg{width:14px;height:14px;stroke:currentColor;flex-shrink:0;}
+  .tab-btn:hover{color:var(--ink);background:var(--panel-raised);}
+  .tab-btn.active{color:var(--accent-ink);background:linear-gradient(160deg, #e6ac63, var(--accent));}
+
   /* ---------- Toolbar ---------- */
   .toolbar{
     display:flex;
@@ -423,6 +451,290 @@
   .icon-btn:hover{background:var(--panel);color:var(--ink);border-color:var(--border);}
   .icon-btn.del:hover{color:var(--danger);border-color:var(--danger);background:var(--danger-soft);}
 
+  /* ---------- Web credential card ---------- */
+  .web-card{
+    background:linear-gradient(165deg, var(--panel-raised) 0%, var(--panel) 100%);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:18px 18px 14px;
+    box-shadow:var(--shadow-card);
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    animation:rise .35s ease backwards;
+  }
+  .web-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(111,155,176,0.35);
+    box-shadow:0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 40px -16px rgba(0,0,0,0.7);
+  }
+  .web-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .web-card-id{display:flex;gap:10px;align-items:flex-start;min-width:0;}
+  .web-badge{
+    width:36px;height:36px;
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15px;
+    flex-shrink:0;
+    border:1px solid;
+  }
+  .web-id-text{min-width:0;}
+  .web-id-text .issuer{
+    font-family:var(--font-display);
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .web-id-text .url{
+    font-size:11.5px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:2px;
+  }
+  .web-card-url{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:12px;
+    padding:10px 12px;
+    background:rgba(0,0,0,0.18);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    color:var(--accent);
+    font-family:var(--font-mono);
+    font-size:12px;
+    text-decoration:none;
+    transition:border-color .15s, background .15s, color .15s;
+  }
+  .web-card-url:hover{border-color:var(--border-strong);background:rgba(0,0,0,0.28);color:var(--ink);}
+  .web-card-url svg{width:14px;height:14px;stroke:currentColor;flex-shrink:0;}
+  .web-card-url span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .web-card-meta{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:10px;
+    color:var(--ink-faint);
+    letter-spacing:0.03em;
+  }
+  .web-card-tools{display:flex;gap:6px;margin-left:auto;}
+  .web-pass-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:10px;
+    padding:10px 12px;
+    background:rgba(0,0,0,0.18);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+  }
+  .web-pass-label{
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    min-width:50px;
+  }
+  .web-pass-value{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--ink);
+    letter-spacing:0.02em;
+  }
+  .web-pass-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;
+    border-radius:8px;
+    border:1px solid var(--border-strong);
+    background:var(--panel);
+    color:var(--ink-dim);
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .web-pass-toggle svg{width:14px;height:14px;stroke:currentColor;}
+  .web-pass-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .web-copy-btn{
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;
+    border-radius:8px;
+    border:1px solid var(--border-strong);
+    background:var(--panel);
+    color:var(--ink-dim);
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .web-copy-btn svg{width:14px;height:14px;stroke:currentColor;}
+  .web-copy-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .web-copy-btn.done{color:var(--success);border-color:var(--success);background:var(--success-soft);}
+  .web-card-foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:10px;
+  }
+  .web-tags{
+    font-size:10px;
+    color:var(--ink-faint);
+    letter-spacing:0.03em;
+  }
+
+  /* ---------- SSH card ---------- */
+  .ssh-card{
+    background:linear-gradient(165deg, var(--panel-raised) 0%, var(--panel) 100%);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:18px 18px 14px;
+    box-shadow:var(--shadow-card);
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    animation:rise .35s ease backwards;
+  }
+  .ssh-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(169,125,171,0.35);
+    box-shadow:0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 40px -16px rgba(0,0,0,0.7);
+  }
+  .ssh-card-head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .ssh-card-id{display:flex;gap:10px;align-items:flex-start;min-width:0;}
+  .ssh-badge{
+    width:36px;height:36px;
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15px;
+    flex-shrink:0;
+    border:1px solid;
+  }
+  .ssh-id-text{min-width:0;}
+  .ssh-id-text .name{
+    font-family:var(--font-display);
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .ssh-id-text .host{
+    font-size:11.5px;
+    color:var(--ink-faint);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:2px;
+  }
+  .ssh-card-conn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:12px;
+    padding:10px 12px;
+    background:rgba(0,0,0,0.18);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    color:var(--accent);
+    font-family:var(--font-mono);
+    font-size:12px;
+    text-decoration:none;
+    transition:border-color .15s, background .15s, color .15s;
+  }
+  .ssh-card-conn:hover{border-color:var(--border-strong);background:rgba(0,0,0,0.28);color:var(--ink);}
+  .ssh-card-conn svg{width:14px;height:14px;stroke:currentColor;flex-shrink:0;}
+  .ssh-card-conn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ssh-pass-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:8px;
+    padding:10px 12px;
+    background:rgba(0,0,0,0.18);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+  }
+  .ssh-pass-label{
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    min-width:60px;
+  }
+  .ssh-pass-value{
+    flex:1;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--ink);
+    letter-spacing:0.02em;
+  }
+  .ssh-pass-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;
+    border-radius:8px;
+    border:1px solid var(--border-strong);
+    background:var(--panel);
+    color:var(--ink-dim);
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .ssh-pass-toggle svg{width:14px;height:14px;stroke:currentColor;}
+  .ssh-pass-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .ssh-copy-btn{
+    display:flex;align-items:center;justify-content:center;
+    width:32px;height:32px;
+    border-radius:8px;
+    border:1px solid var(--border-strong);
+    background:var(--panel);
+    color:var(--ink-dim);
+    cursor:pointer;
+    transition:color .15s, border-color .15s, background .15s;
+  }
+  .ssh-copy-btn svg{width:14px;height:14px;stroke:currentColor;}
+  .ssh-copy-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
+  .ssh-copy-btn.done{color:var(--success);border-color:var(--success);background:var(--success-soft);}
+  .ssh-card-foot{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:10px;
+  }
+  .ssh-tags{
+    font-size:10px;
+    color:var(--ink-faint);
+    letter-spacing:0.03em;
+  }
+  .ssh-card-tools{display:flex;gap:6px;margin-left:auto;}
+  .ssh-key-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:10px;
+    padding:2px 6px;
+    border-radius:4px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border:1px solid var(--border-strong);
+    margin-right:6px;
+  }
+
   /* ---------- Empty state ---------- */
   .empty{
     grid-column:1/-1;
@@ -604,7 +916,7 @@
     <div class="top-actions">
       <div class="search-box">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="searchInput" type="text" placeholder="搜索发行方或账户…">
+        <input id="searchInput" type="text" placeholder="搜索名称、主机、账户…">
       </div>
       <button class="btn btn-primary" id="addBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
@@ -614,15 +926,25 @@
   </header>
 
   <div class="toolbar">
-    <div class="count-pill" id="countPill">共 <b>0</b> 个令牌</div>
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="totp" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4.2"/><path d="M12 12.5v7.5M9 17h6"/></svg>
+        动态令牌
+      </button>
+      <button class="tab-btn" data-tab="web" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3M21 3v6h-6"/></svg>
+        网址账号
+      </button>
+      <button class="tab-btn" data-tab="ssh" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M6 12h12M10 8v8"/></svg>
+        SSH 主机
+      </button>
+    </div>
+    <div class="count-pill" id="countPill">共 <b>0</b> 个条目</div>
     <div class="toolbar-right">
       <button class="btn btn-ghost btn-sm" id="importBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>
         导入
-      </button>
-      <button class="btn btn-ghost btn-sm" id="gdriveImportBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        Drive 导入
       </button>
       <input type="file" id="fileInput" accept="application/json,.json">
       <div style="position:relative;">
@@ -639,10 +961,6 @@
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>
             复制 JSON 到剪贴板
           </button>
-          <button data-mode="gdrive-save">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            保存到 Google Drive
-          </button>
         </div>
       </div>
     </div>
@@ -652,7 +970,7 @@
 
   <div class="notice">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
-    <div>所有令牌仅保存在当前浏览器的 localStorage 中，不会上传到任何服务器；清除浏览器数据将导致记录丢失。导出的 JSON 文件包含明文密钥，请妥善保管，并只在受信任的设备间传递，用于在下一个网页中导入使用。</div>
+    <div>所有数据仅保存在当前浏览器的 localStorage 中，不会上传到任何服务器；清除浏览器数据将导致记录丢失。导出的 JSON 文件包含明文密钥与密码，请妥善保管，并只在受信任的设备间传递，用于在下一个网页中导入使用。</div>
   </div>
 
 </div>
@@ -703,6 +1021,93 @@
   </div>
 </div>
 
+<!-- Add / Edit Web Credential modal -->
+<div class="overlay" id="webFormOverlay">
+  <div class="modal">
+    <h3><span id="webFormTitle">新增网址账号</span><span class="x" id="webFormClose"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span></h3>
+    <form id="webCredentialForm">
+      <div class="field" id="wf-name">
+        <label>名称 / 标签</label>
+        <input type="text" id="in-web-name" placeholder="例如 GitHub、Google、公司内网">
+      </div>
+      <div class="field" id="wf-url">
+        <label>网址 URL</label>
+        <input type="url" id="in-web-url" placeholder="https://example.com">
+        <div class="err-text">请填写有效的网址</div>
+      </div>
+      <div class="field" id="wf-username">
+        <label>用户名 / 邮箱</label>
+        <input type="text" id="in-web-username" placeholder="alice@example.com">
+      </div>
+      <div class="field" id="wf-password">
+        <label>密码</label>
+        <div style="display:flex;gap:8px;">
+          <input type="password" id="in-web-password" placeholder="输入密码" style="flex:1;">
+          <button type="button" class="icon-btn" id="toggleWebPass" aria-label="显示/隐藏密码">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="field" id="wf-notes">
+        <label>备注（可选）</label>
+        <textarea id="in-web-notes" placeholder="备注信息..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="webFormCancel">取消</button>
+        <button type="submit" class="btn btn-primary" id="webFormSave">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Add / Edit SSH Host modal -->
+<div class="overlay" id="sshFormOverlay">
+  <div class="modal">
+    <h3><span id="sshFormTitle">新增 SSH 主机</span><span class="x" id="sshFormClose"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span></h3>
+    <form id="sshHostForm">
+      <div class="field" id="sf-name">
+        <label>名称 / 标签</label>
+        <input type="text" id="in-ssh-name" placeholder="例如 生产服务器、跳板机、GitHub">
+      </div>
+      <div class="field" id="sf-host">
+        <label>主机地址</label>
+        <input type="text" id="in-ssh-host" placeholder="192.168.1.100 或 example.com">
+        <div class="err-text">请填写主机地址</div>
+      </div>
+      <div class="field" id="sf-port" style="margin-bottom:0;">
+        <label>端口</label>
+        <input type="number" id="in-ssh-port" value="22" min="1" max="65535">
+      </div>
+      <div class="field" id="sf-user">
+        <label>用户名</label>
+        <input type="text" id="in-ssh-user" placeholder="root、ubuntu、admin">
+      </div>
+      <div class="field" id="sf-key">
+        <label>密钥路径（可选，用于免密登录）</label>
+        <input type="text" id="in-ssh-key" placeholder="~/.ssh/id_rsa_prod 或 C:\\Users\\name\\.ssh\\id_rsa">
+        <div class="hint">留空则使用密码登录；填写后生成的 ssh:// 链接会附带 -i 参数提示</div>
+      </div>
+      <div class="field" id="sf-password">
+        <label>密码（可选，明文存储）</label>
+        <div style="display:flex;gap:8px;">
+          <input type="password" id="in-ssh-password" placeholder="输入密码" style="flex:1;">
+          <button type="button" class="icon-btn" id="toggleSshPass" aria-label="显示/隐藏密码">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="field" id="sf-tags">
+        <label>标签（可选，逗号分隔）</label>
+        <input type="text" id="in-ssh-tags" placeholder="生产环境,跳板机,数据库">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="sshFormCancel">取消</button>
+        <button type="submit" class="btn btn-primary" id="sshFormSave">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Delete confirm modal -->
 <div class="overlay" id="confirmOverlay">
   <div class="modal confirm">
@@ -717,29 +1122,42 @@
 
 <div class="toasts" id="toasts"></div>
 
-<script src="gdrive-config.js"></script>
 <script>
 (function(){
   'use strict';
 
-  var STORE_KEY = 'authlist.entries.v1';
+  var STORE_KEY_TOTP = 'authlist.entries.v1';
+  var STORE_KEY_WEB = 'authlist.webcreds.v1';
   var DEFAULT_ALGO = 'SHA-1';
   var BADGE_PALETTE = ['#d99a4e','#c5533f','#8caf6f','#6f9bb0','#a97dab','#b0975f','#c98a6b','#7fae9e'];
 
   /* ---------------- storage ---------------- */
-  function loadEntries(){
+  function loadTotpEntries(){
     try{
-      var raw = localStorage.getItem(STORE_KEY);
+      var raw = localStorage.getItem(STORE_KEY_TOTP);
       if(!raw) return [];
       var data = JSON.parse(raw);
       return Array.isArray(data) ? data : [];
     }catch(e){ return []; }
   }
-  function saveEntries(){
-    localStorage.setItem(STORE_KEY, JSON.stringify(entries));
+  function saveTotpEntries(){
+    localStorage.setItem(STORE_KEY_TOTP, JSON.stringify(totpEntries));
+  }
+  function loadWebEntries(){
+    try{
+      var raw = localStorage.getItem(STORE_KEY_WEB);
+      if(!raw) return [];
+      var data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    }catch(e){ return []; }
+  }
+  function saveWebEntries(){
+    localStorage.setItem(STORE_KEY_WEB, JSON.stringify(webEntries));
   }
 
-  var entries = loadEntries();
+  var totpEntries = loadTotpEntries();
+  var webEntries = loadWebEntries();
+  var currentTab = 'totp';
 
   /* ---------------- base32 / otp ---------------- */
   function base32Decode(input){
@@ -819,7 +1237,7 @@
     }catch(e){ return null; }
   }
 
-  /* ---------------- helpers ---------------- */
+/* ---------------- helpers ---------------- */
   function generateId(){
     if(crypto.randomUUID) return crypto.randomUUID();
     return 'id-' + Date.now() + '-' + Math.random().toString(16).slice(2);
@@ -834,12 +1252,19 @@
 
   function escapeHtml(str){
     return String(str||'').replace(/[&<>"']/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+      return {'&':'&','<':'<','>':'>','"':'"',"'":'\''}[c];
     });
   }
 
   function displayName(entry){
     return (entry.issuer ? entry.issuer + ' · ' : '') + entry.account;
+  }
+
+  function getCurrentEntries(){
+    return currentTab === 'totp' ? totpEntries : webEntries;
+  }
+  function getCurrentSaveFn(){
+    return currentTab === 'totp' ? saveTotpEntries : saveWebEntries;
   }
 
   /* ---------------- toasts ---------------- */
@@ -859,12 +1284,13 @@
   var gridEl = document.getElementById('grid');
   var countPill = document.getElementById('countPill');
   var searchInput = document.getElementById('searchInput');
+  var tabBtns = document.querySelectorAll('.tab-btn');
   var cardRefs = new Map();
 
   var RING_R = 16;
   var RING_C = 2 * Math.PI * RING_R;
 
-  function buildCard(entry){
+  function buildTotpCard(entry){
     var card = document.createElement('div');
     card.className = 'card';
     card.dataset.id = entry.id;
@@ -922,6 +1348,105 @@
     return ref;
   }
 
+  function buildWebCard(entry){
+    var card = document.createElement('div');
+    card.className = 'web-card';
+    card.dataset.id = entry.id;
+
+    var color = hashColor(entry.name || entry.url);
+    var letter = (entry.name || entry.url || '?').trim().charAt(0).toUpperCase();
+
+    var displayUrl = entry.url.replace(/^https?:\/\//, '');
+    if(displayUrl.length > 40) displayUrl = displayUrl.slice(0, 40) + '…';
+
+    var maskedPassword = entry.password ? '•'.repeat(entry.password.length) : '';
+    var usernameId = 'wusr-' + entry.id;
+    var passwordId = 'wpwd-' + entry.id;
+
+    card.innerHTML =
+      '<div class="web-card-head">'+
+        '<div class="web-card-id">'+
+          '<div class="web-badge" style="background:'+color+'22;border-color:'+color+'55;color:'+color+';">'+escapeHtml(letter)+'</div>'+
+          '<div class="web-id-text">'+
+            '<div class="issuer">'+escapeHtml(entry.name || '未命名')+'</div>'+
+            '<div class="url">'+escapeHtml(displayUrl)+'</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+      '<a class="web-card-url" href="'+escapeHtml(entry.url)+'" target="_blank" rel="noopener noreferrer">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3M21 3v6h-6"/></svg>'+
+        '<span>'+escapeHtml(displayUrl)+'</span>'+
+      '</a>'+
+      (entry.username ? '<div class="web-pass-row">'+
+        '<span class="web-pass-label">用户名</span>'+
+        '<span class="web-pass-value" id="'+usernameId+'">'+escapeHtml(entry.username)+'</span>'+
+        '<button class="web-copy-btn" type="button" data-target="'+usernameId+'" data-value="'+escapeHtml(entry.username)+'" aria-label="复制用户名">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>'+
+        '</button>'+
+      '</div>' : '')+
+      (entry.password ? '<div class="web-pass-row">'+
+        '<span class="web-pass-label">密码</span>'+
+        '<span class="web-pass-value" id="'+passwordId+'">'+escapeHtml(maskedPassword)+'</span>'+
+        '<button class="web-pass-toggle" type="button" data-target="'+passwordId+'" data-value="'+escapeHtml(entry.password)+'" aria-label="显示/隐藏密码">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'+
+        '</button>'+
+        '<button class="web-copy-btn" type="button" data-target="'+passwordId+'" data-value="'+escapeHtml(entry.password)+'" aria-label="复制密码">'+
+          '<svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="4" width="12" height="16" rx="2"/><path d="M4 8v12a2 2 0 002 2h8"/></svg>'+
+        '</button>'+
+      '</div>' : '')+
+      '<div class="web-card-foot">'+
+        '<div class="web-tags">ID '+entry.id.slice(0,6)+'</div>'+
+        '<div class="card-tools web-card-tools">'+
+          '<button class="icon-btn edit" type="button" aria-label="编辑"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></button>'+
+          '<button class="icon-btn del" type="button" aria-label="删除"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>'+
+        '</div>'+
+      '</div>';
+
+    var ref = {
+      entry: entry,
+      cardEl: card,
+    };
+
+    card.querySelector('.edit').addEventListener('click', function(e){ e.stopPropagation(); openWebForm(entry); });
+    card.querySelector('.del').addEventListener('click', function(e){ e.stopPropagation(); openConfirmWeb(entry); });
+
+    card.querySelectorAll('.web-pass-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var targetId = this.dataset.target;
+        var realValue = this.dataset.value;
+        var targetEl = document.getElementById(targetId);
+        var isHidden = targetEl.textContent.indexOf('•') === 0;
+        if(isHidden){
+          targetEl.textContent = realValue;
+          targetEl.style.fontFamily = 'var(--font-mono)';
+        }else{
+          targetEl.textContent = '•'.repeat(realValue.length);
+          targetEl.style.fontFamily = 'var(--font-mono)';
+        }
+      });
+    });
+
+    card.querySelectorAll('.web-copy-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var value = this.dataset.value;
+        var done = function(){
+          btn.classList.add('done');
+          toast('已复制', 'success');
+          setTimeout(function(){ btn.classList.remove('done'); }, 1200);
+        };
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(value).then(done).catch(function(){ fallbackCopy(value, done); });
+        }else{
+          fallbackCopy(value, done);
+        }
+      });
+    });
+
+    return ref;
+  }
+
   function copyCode(ref){
     if(!ref.currentCode) return;
     var text = ref.currentCode;
@@ -950,12 +1475,23 @@
 
   function sortedFiltered(){
     var q = (searchInput.value || '').trim().toLowerCase();
-    var list = entries.filter(function(e){
+    var list = getCurrentEntries().filter(function(e){
       if(!q) return true;
-      return (e.issuer||'').toLowerCase().indexOf(q) !== -1 || (e.account||'').toLowerCase().indexOf(q) !== -1;
+      if(currentTab === 'totp'){
+        return (e.issuer||'').toLowerCase().indexOf(q) !== -1 || (e.account||'').toLowerCase().indexOf(q) !== -1;
+      }else{
+        return (e.name||'').toLowerCase().indexOf(q) !== -1 || (e.url||'').toLowerCase().indexOf(q) !== -1 || (e.username||'').toLowerCase().indexOf(q) !== -1;
+      }
     });
     list.sort(function(a,b){
-      var an = (a.issuer||'') + a.account, bn = (b.issuer||'') + b.account;
+      var an, bn;
+      if(currentTab === 'totp'){
+        an = (a.issuer||'') + a.account;
+        bn = (b.issuer||'') + b.account;
+      }else{
+        an = (a.name||'') + a.url;
+        bn = (b.name||'') + b.url;
+      }
       return an.localeCompare(bn, 'zh');
     });
     return list;
@@ -966,36 +1502,52 @@
     cardRefs.clear();
     var list = sortedFiltered();
 
-    countPill.innerHTML = '共 <b>' + entries.length + '</b> 个令牌';
+    var total = getCurrentEntries().length;
+    countPill.innerHTML = '共 <b>' + total + '</b> 个' + (currentTab === 'totp' ? ' 令牌' : ' 条目');
 
-    if(entries.length === 0){
-      gridEl.innerHTML =
-        '<div class="empty">'+
-          '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 21h6"/></svg>'+
-          '<h2>还没有任何令牌</h2>'+
-          '<p>新增一个令牌，或从此前导出的 JSON 文件中导入，即可开始生成动态验证码。</p>'+
-          '<div class="actions">'+
-            '<button class="btn btn-primary" id="emptyAdd">新增令牌</button>'+
-            '<button class="btn btn-ghost" id="emptyImport">导入 JSON</button>'+
-          '</div>'+
-        '</div>';
-      document.getElementById('emptyAdd').addEventListener('click', function(){ openForm(null); });
-      document.getElementById('emptyImport').addEventListener('click', function(){ document.getElementById('fileInput').click(); });
+    if(total === 0){
+      if(currentTab === 'totp'){
+        gridEl.innerHTML =
+          '<div class="empty">'+
+            '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><circle cx="12" cy="9" r="5"/><path d="M12 14v7M9 21h6"/></svg>'+
+            '<h2>还没有任何令牌</h2>'+
+            '<p>新增一个令牌，或从此前导出的 JSON 文件中导入，即可开始生成动态验证码。</p>'+
+            '<div class="actions">'+
+              '<button class="btn btn-primary" id="emptyAdd">新增令牌</button>'+
+              '<button class="btn btn-ghost" id="emptyImport">导入 JSON</button>'+
+            '</div>'+
+          '</div>';
+        document.getElementById('emptyAdd').addEventListener('click', function(){ openForm(null); });
+        document.getElementById('emptyImport').addEventListener('click', function(){ document.getElementById('fileInput').click(); });
+      }else{
+        gridEl.innerHTML =
+          '<div class="empty">'+
+            '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.4"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3M21 3v6h-6"/></svg>'+
+            '<h2>还没有任何网址账号</h2>'+
+            '<p>新增一个网址账号，支持保存网址、用户名、密码与备注，点击网址可直接跳转。</p>'+
+            '<div class="actions">'+
+              '<button class="btn btn-primary" id="emptyAddWeb">新增网址账号</button>'+
+              '<button class="btn btn-ghost" id="emptyImportWeb">导入 JSON</button>'+
+            '</div>'+
+          '</div>';
+        document.getElementById('emptyAddWeb').addEventListener('click', function(){ openWebForm(null); });
+        document.getElementById('emptyImportWeb').addEventListener('click', function(){ document.getElementById('fileInput').click(); });
+      }
       return;
     }
 
     if(list.length === 0){
-      gridEl.innerHTML = '<div class="no-match">没有匹配「' + escapeHtml(searchInput.value) + '」的令牌</div>';
+      gridEl.innerHTML = '<div class="no-match">没有匹配「' + escapeHtml(searchInput.value) + '」的条目</div>';
       return;
     }
 
     list.forEach(function(entry, idx){
-      var ref = buildCard(entry);
+      var ref = currentTab === 'totp' ? buildTotpCard(entry) : buildWebCard(entry);
       ref.cardEl.style.animationDelay = (idx * 22) + 'ms';
       gridEl.appendChild(ref.cardEl);
       cardRefs.set(entry.id, ref);
     });
-    tick(true);
+    if(currentTab === 'totp') tick(true);
   }
 
   /* ---------------- ticking ---------------- */
@@ -1045,7 +1597,7 @@
 
   setInterval(function(){ tick(false); }, 1000);
 
-  /* ---------------- add/edit form ---------------- */
+  /* ---------------- add/edit TOTP form ---------------- */
   var formOverlay = document.getElementById('formOverlay');
   var formTitle = document.getElementById('formTitle');
   var tokenForm = document.getElementById('tokenForm');
@@ -1097,7 +1649,10 @@
     formOverlay.classList.remove('open');
     if(lastFocused) lastFocused.focus();
   }
-  document.getElementById('addBtn').addEventListener('click', function(){ openForm(null); });
+  document.getElementById('addBtn').addEventListener('click', function(){ 
+    if(currentTab === 'totp') openForm(null); 
+    else openWebForm(null); 
+  });
   document.getElementById('formClose').addEventListener('click', closeForm);
   document.getElementById('formCancel').addEventListener('click', closeForm);
   formOverlay.addEventListener('click', function(e){ if(e.target === formOverlay) closeForm(); });
@@ -1136,7 +1691,7 @@
     var cleanSecret = secret.toUpperCase().replace(/\s+/g,'');
 
     if(editingId){
-      var existing = entries.find(function(e){ return e.id === editingId; });
+      var existing = totpEntries.find(function(e){ return e.id === editingId; });
       if(existing){
         existing.issuer = inIssuer.value.trim();
         existing.account = account;
@@ -1147,7 +1702,7 @@
       }
       toast('已更新令牌', 'success');
     }else{
-      entries.push({
+      totpEntries.push({
         id: generateId(),
         issuer: inIssuer.value.trim(),
         account: account,
@@ -1159,12 +1714,12 @@
       });
       toast('已新增令牌', 'success');
     }
-    saveEntries();
+    saveTotpEntries();
     closeForm();
     renderGrid();
   });
 
-  /* ---------------- delete confirm ---------------- */
+  /* ---------------- delete confirm TOTP ---------------- */
   var confirmOverlay = document.getElementById('confirmOverlay');
   var confirmName = document.getElementById('confirmName');
   var pendingDeleteId = null;
@@ -1183,19 +1738,144 @@
   confirmOverlay.addEventListener('click', function(e){ if(e.target === confirmOverlay) closeConfirm(); });
   document.getElementById('confirmDelete').addEventListener('click', function(){
     if(!pendingDeleteId) return;
-    entries = entries.filter(function(e){ return e.id !== pendingDeleteId; });
-    saveEntries();
+    totpEntries = totpEntries.filter(function(e){ return e.id !== pendingDeleteId; });
+    saveTotpEntries();
     closeConfirm();
     renderGrid();
     toast('已删除令牌', 'info');
   });
 
+  /* ---------------- web credential form ---------------- */
+  var webFormOverlay = document.getElementById('webFormOverlay');
+  var webFormTitle = document.getElementById('webFormTitle');
+  var webCredentialForm = document.getElementById('webCredentialForm');
+  var inWebName = document.getElementById('in-web-name');
+  var inWebUrl = document.getElementById('in-web-url');
+  var inWebUsername = document.getElementById('in-web-username');
+  var inWebPassword = document.getElementById('in-web-password');
+  var inWebNotes = document.getElementById('in-web-notes');
+  var toggleWebPass = document.getElementById('toggleWebPass');
+  var webEditingId = null;
+  var webLastFocused = null;
+
+  toggleWebPass.addEventListener('click', function(){
+    var type = inWebPassword.type === 'password' ? 'text' : 'password';
+    inWebPassword.type = type;
+  });
+
+  function openWebForm(entry){
+    webLastFocused = document.activeElement;
+    webEditingId = entry ? entry.id : null;
+    webFormTitle.textContent = entry ? '编辑网址账号' : '新增网址账号';
+    document.getElementById('wf-url').classList.remove('invalid');
+
+    if(entry){
+      inWebName.value = entry.name || '';
+      inWebUrl.value = entry.url || '';
+      inWebUsername.value = entry.username || '';
+      inWebPassword.value = entry.password || '';
+      inWebNotes.value = entry.notes || '';
+    }else{
+      inWebName.value = '';
+      inWebUrl.value = '';
+      inWebUsername.value = '';
+      inWebPassword.value = '';
+      inWebNotes.value = '';
+    }
+
+    webFormOverlay.classList.add('open');
+    setTimeout(function(){ inWebName.focus(); }, 50);
+  }
+  function closeWebForm(){
+    webFormOverlay.classList.remove('open');
+    if(webLastFocused) webLastFocused.focus();
+  }
+  document.getElementById('webFormClose').addEventListener('click', closeWebForm);
+  document.getElementById('webFormCancel').addEventListener('click', closeWebForm);
+  webFormOverlay.addEventListener('click', function(e){ if(e.target === webFormOverlay) closeWebForm(); });
+
+  webCredentialForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = inWebName.value.trim();
+    var url = inWebUrl.value.trim();
+    var username = inWebUsername.value.trim();
+    var password = inWebPassword.value;
+    var notes = inWebNotes.value.trim();
+
+    var urlOk = url.length > 0;
+    document.getElementById('wf-url').classList.toggle('invalid', !urlOk);
+    if(!urlOk) return;
+
+    if(webEditingId){
+      var existing = webEntries.find(function(e){ return e.id === webEditingId; });
+      if(existing){
+        existing.name = name;
+        existing.url = url;
+        existing.username = username;
+        existing.password = password;
+        existing.notes = notes;
+      }
+      toast('已更新网址账号', 'success');
+    }else{
+      webEntries.push({
+        id: generateId(),
+        name: name,
+        url: url,
+        username: username,
+        password: password,
+        notes: notes,
+        createdAt: Date.now()
+      });
+      toast('已新增网址账号', 'success');
+    }
+    saveWebEntries();
+    closeWebForm();
+    renderGrid();
+  });
+
+  /* ---------------- delete confirm Web ---------------- */
+  var confirmOverlayWeb = document.getElementById('confirmOverlay');
+  var confirmNameWeb = document.getElementById('confirmName');
+  var pendingDeleteWebId = null;
+
+  function openConfirmWeb(entry){
+    pendingDeleteWebId = entry.id;
+    confirmNameWeb.textContent = entry.name || entry.url;
+    confirmOverlayWeb.classList.add('open');
+  }
+  function closeConfirmWeb(){
+    confirmOverlayWeb.classList.remove('open');
+    pendingDeleteWebId = null;
+  }
+  document.getElementById('confirmClose').addEventListener('click', closeConfirmWeb);
+  document.getElementById('confirmCancel').addEventListener('click', closeConfirmWeb);
+  confirmOverlayWeb.addEventListener('click', function(e){ if(e.target === confirmOverlayWeb) closeConfirmWeb(); });
+  document.getElementById('confirmDelete').addEventListener('click', function(){
+    if(!pendingDeleteWebId) return;
+    webEntries = webEntries.filter(function(e){ return e.id !== pendingDeleteWebId; });
+    saveWebEntries();
+    closeConfirmWeb();
+    renderGrid();
+    toast('已删除网址账号', 'info');
+  });
+
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){
       if(formOverlay.classList.contains('open')) closeForm();
+      if(webFormOverlay.classList.contains('open')) closeWebForm();
       if(confirmOverlay.classList.contains('open')) closeConfirm();
       exportMenu.classList.remove('open');
     }
+  });
+
+  /* ---------------- tab switching ---------------- */
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      currentTab = this.dataset.tab;
+      tabBtns.forEach(function(b){ b.classList.toggle('active', b === btn); });
+      searchInput.value = '';
+      renderGrid();
+    });
   });
 
   /* ---------------- search ---------------- */
@@ -1213,9 +1893,9 @@
   function buildExportPayload(){
     return {
       app: 'authlist-local',
-      version: 1,
+      version: 2,
       exportedAt: new Date().toISOString(),
-      entries: entries.map(function(e){
+      totp: totpEntries.map(function(e){
         return {
           issuer: e.issuer,
           account: e.account,
@@ -1223,6 +1903,15 @@
           digits: e.digits,
           period: e.period,
           algorithm: e.algorithm
+        };
+      }),
+      web: webEntries.map(function(e){
+        return {
+          name: e.name,
+          url: e.url,
+          username: e.username,
+          password: e.password,
+          notes: e.notes
         };
       })
     };
@@ -1232,7 +1921,8 @@
     var btn = e.target.closest('button');
     if(!btn) return;
     exportMenu.classList.remove('open');
-    if(entries.length === 0){ toast('没有可导出的令牌', 'error'); return; }
+    var total = totpEntries.length + webEntries.length;
+    if(total === 0){ toast('没有可导出的数据', 'error'); return; }
     var payload = buildExportPayload();
     var json = JSON.stringify(payload, null, 2);
     if(btn.dataset.mode === 'download'){
@@ -1247,7 +1937,7 @@
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-      toast('已下载 JSON 文件，共 ' + entries.length + ' 条', 'success');
+      toast('已下载 JSON 文件，共 ' + totpEntries.length + ' 令牌 + ' + webEntries.length + ' 网址账号', 'success');
     }else{
       var done = function(){ toast('已复制 JSON 到剪贴板', 'success'); };
       if(navigator.clipboard && navigator.clipboard.writeText){
@@ -1268,17 +1958,19 @@
     reader.onload = function(){
       try{
         var data = JSON.parse(reader.result);
-        var list = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : null);
-        if(!list) throw new Error('bad format');
-        var added = 0, skipped = 0;
-        list.forEach(function(item){
+        var addedTotp = 0, addedWeb = 0, skipped = 0;
+        
+        var totpList = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : (data && Array.isArray(data.totp) ? data.totp : []));
+        var webList = data && Array.isArray(data.web) ? data.web : [];
+        
+        totpList.forEach(function(item){
           if(!item || !item.secret){ skipped++; return; }
           var cleanSecret = String(item.secret).toUpperCase().replace(/\s+/g,'');
           if(!isValidSecret(cleanSecret)){ skipped++; return; }
           var account = (item.account || item.label || '').trim();
-          var dup = entries.some(function(e){ return e.secret === cleanSecret && e.account === account; });
+          var dup = totpEntries.some(function(e){ return e.secret === cleanSecret && e.account === account; });
           if(dup){ skipped++; return; }
-          entries.push({
+          totpEntries.push({
             id: generateId(),
             issuer: (item.issuer || '').trim(),
             account: account,
@@ -1288,11 +1980,32 @@
             algorithm: ['SHA-1','SHA-256','SHA-512'].indexOf(item.algorithm) !== -1 ? item.algorithm : DEFAULT_ALGO,
             createdAt: Date.now()
           });
-          added++;
+          addedTotp++;
         });
-        saveEntries();
+        
+        webList.forEach(function(item){
+          if(!item || !item.url){ skipped++; return; }
+          var dup = webEntries.some(function(e){ return e.url === item.url && e.username === (item.username || ''); });
+          if(dup){ skipped++; return; }
+          webEntries.push({
+            id: generateId(),
+            name: (item.name || '').trim(),
+            url: item.url.trim(),
+            username: (item.username || '').trim(),
+            password: item.password || '',
+            notes: (item.notes || '').trim(),
+            createdAt: Date.now()
+          });
+          addedWeb++;
+        });
+        
+        saveTotpEntries();
+        saveWebEntries();
         renderGrid();
-        toast('导入完成：新增 ' + added + ' 条' + (skipped ? '，跳过 ' + skipped + ' 条' : ''), added ? 'success' : 'info');
+        var msg = '导入完成：新增 ' + addedTotp + ' 令牌';
+        if(addedWeb) msg += '，' + addedWeb + ' 网址账号';
+        if(skipped) msg += '，跳过 ' + skipped + ' 条';
+        toast(msg, (addedTotp || addedWeb) ? 'success' : 'info');
       }catch(err){
         toast('导入失败：文件格式不正确', 'error');
       }
@@ -1303,168 +2016,6 @@
 
   /* ---------------- init ---------------- */
   renderGrid();
-
-  /* ---------------- Google Drive ---------------- */
-  var GAPI_KEY = GDRIVE_CONFIG.API_KEY;
-  var GCLIENT_ID = GDRIVE_CONFIG.CLIENT_ID;
-  var GDRIVE_TOKEN = null;
-  var SCOPES = 'https://www.googleapis.com/auth/drive.file';
-  var gapiReady = false;
-  var gapiTokenClient = null;
-
-  function loadGIS(cb){
-    if(window.google && window.google.accounts){ cb(); return; }
-    var s = document.createElement('script');
-    s.src = 'https://accounts.google.com/gsi/client';
-    s.onload = cb;
-    s.onerror = function(){ toast('加载 Google Identity Services 失败', 'error'); };
-    document.head.appendChild(s);
-  }
-
-  function ensureGDriveToken(cb){
-    if(GDRIVE_TOKEN){ cb(true); return; }
-    loadGIS(function(){
-      if(!window.google || !window.google.accounts){
-        toast('Google Identity Services 加载失败', 'error');
-        cb(false);
-        return;
-      }
-      if(!gapiTokenClient){
-        gapiTokenClient = google.accounts.oauth2.initTokenClient({
-          client_id: GCLIENT_ID,
-          scope: SCOPES,
-          callback: function(resp){
-            if(resp && resp.access_token){
-              GDRIVE_TOKEN = resp.access_token;
-              cb(true);
-            }else{
-              toast('Google 登录失败', 'error');
-              cb(false);
-            }
-          },
-          error_callback: function(err){
-            toast('Google 登录被取消', 'error');
-            cb(false);
-          }
-        });
-      }
-      gapiTokenClient.requestAccessToken({ prompt: 'consent' });
-    });
-  }
-
-  function gdriveUpload(filename, json, cb){
-    ensureGDriveToken(function(ok){
-      if(!ok) return;
-      var metadata = { name: filename, mimeType: 'application/json' };
-      var form = new FormData();
-      form.append('metadata', new Blob([JSON.stringify(metadata)], {type:'application/json'}));
-      form.append('file', new Blob([json], {type:'application/json'}));
-
-      fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
-        method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN },
-        body: form
-      }).then(function(r){ return r.json(); })
-        .then(function(r){
-          if(r.id){ toast('已保存到 Google Drive：' + filename, 'success'); cb(true); }
-          else{
-            if(r.error && r.error.code === 401){ GDRIVE_TOKEN = null; gdriveUpload(filename, json, cb); return; }
-            toast('保存失败：' + (r.error?.message || '未知错误'), 'error'); cb(false);
-          }
-        }).catch(function(){ toast('上传失败', 'error'); cb(false); });
-    });
-  }
-
-  function gdriveListFiles(cb){
-    ensureGDriveToken(function(ok){
-      if(!ok) return;
-      var q = "mimeType='application/json' and name contains 'authlist'";
-      var params = new URLSearchParams({ q: q, fields: 'files(id,name,modifiedTime)', orderBy: 'modifiedTime desc', pageSize: '20' });
-      fetch('https://www.googleapis.com/drive/v3/files?' + params.toString(), {
-        headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN }
-      }).then(function(r){ return r.json(); })
-        .then(function(r){
-          if(r.error && r.error.code === 401){ GDRIVE_TOKEN = null; gdriveListFiles(cb); return; }
-          cb(r.files || []);
-        })
-        .catch(function(){ cb([]); });
-    });
-  }
-
-  function gdriveDownload(fileId, cb){
-    fetch('https://www.googleapis.com/drive/v3/files/' + fileId + '?alt=media', {
-      headers: { 'Authorization': 'Bearer ' + GDRIVE_TOKEN }
-    }).then(function(r){ return r.text(); })
-      .then(function(t){ cb(t); })
-      .catch(function(){ toast('下载失败', 'error'); cb(null); });
-  }
-
-  exportMenu.addEventListener('click', function(e){
-    var btn = e.target.closest('button');
-    if(!btn) return;
-    if(btn.dataset.mode !== 'gdrive-save') return;
-    exportMenu.classList.remove('open');
-    if(entries.length === 0){ toast('没有可导出的令牌', 'error'); return; }
-    var payload = buildExportPayload();
-    var json = JSON.stringify(payload, null, 2);
-    var d = new Date();
-    var stamp = d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
-    gdriveUpload('authlist-export-' + stamp + '.json', json);
-  });
-
-  document.getElementById('gdriveImportBtn').addEventListener('click', function(){
-    gdriveListFiles(function(files){
-      if(files.length === 0){ toast('Google Drive 上没有找到 authlist 备份文件', 'info'); return; }
-      var html = '<div style="max-height:300px;overflow-y:auto;">';
-      files.forEach(function(f){
-        html += '<button class="gdrive-file-btn" data-id="'+f.id+'" style="display:block;width:100%;text-align:left;padding:10px 12px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;background:var(--bg-soft);color:var(--ink);font-size:12px;cursor:pointer;transition:border-color .15s;">'+
-          '<div style="font-weight:600;margin-bottom:3px;">'+escapeHtml(f.name)+'</div>'+
-          '<div style="color:var(--ink-faint);font-size:10px;">'+(f.modifiedTime||'')+'</div>'+
-          '</button>';
-      });
-      html += '</div>';
-
-      var overlay = document.createElement('div');
-      overlay.className = 'overlay open';
-      overlay.innerHTML = '<div class="modal"><h3>选择 Google Drive 文件<span class="x close-gdrive-picker"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span></h3>'+html+'</div>';
-      document.body.appendChild(overlay);
-
-      overlay.querySelector('.close-gdrive-picker').addEventListener('click', function(){ overlay.remove(); });
-      overlay.addEventListener('click', function(e){ if(e.target === overlay) overlay.remove(); });
-
-      overlay.querySelectorAll('.gdrive-file-btn').forEach(function(b){
-        b.addEventListener('click', function(){
-          overlay.remove();
-          gdriveDownload(b.dataset.id, function(text){
-            if(!text) return;
-            try{
-              var data = JSON.parse(text);
-              var list = Array.isArray(data) ? data : (data && Array.isArray(data.entries) ? data.entries : null);
-              if(!list) throw new Error('bad');
-              var added = 0, skipped = 0;
-              list.forEach(function(item){
-                if(!item || !item.secret){ skipped++; return; }
-                var cleanSecret = String(item.secret).toUpperCase().replace(/\s+/g,'');
-                if(!isValidSecret(cleanSecret)){ skipped++; return; }
-                var account = (item.account || item.label || '').trim();
-                var dup = entries.some(function(e){ return e.secret === cleanSecret && e.account === account; });
-                if(dup){ skipped++; return; }
-                entries.push({
-                  id: generateId(), issuer: (item.issuer||'').trim(), account: account, secret: cleanSecret,
-                  digits: item.digits===8?8:6, period: (Number(item.period)>0)?Number(item.period):30,
-                  algorithm: ['SHA-1','SHA-256','SHA-512'].indexOf(item.algorithm)!==-1?item.algorithm:DEFAULT_ALGO,
-                  createdAt: Date.now()
-                });
-                added++;
-              });
-              saveEntries(); renderGrid();
-              toast('导入完成：新增 '+added+' 条'+(skipped?'，跳过 '+skipped+' 条':''), added?'success':'info');
-            }catch(err){ toast('导入失败：文件格式不正确', 'error'); }
-          });
-        });
-      });
-    });
-  });
 })();
 </script>
 </body>
