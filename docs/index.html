@@ -591,150 +591,6 @@
     letter-spacing:0.03em;
   }
 
-  /* ---------- SSH card ---------- */
-  .ssh-card{
-    background:linear-gradient(165deg, var(--panel-raised) 0%, var(--panel) 100%);
-    border:1px solid var(--border);
-    border-radius:var(--radius-lg);
-    padding:18px 18px 14px;
-    box-shadow:var(--shadow-card);
-    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-    animation:rise .35s ease backwards;
-  }
-  .ssh-card:hover{
-    transform:translateY(-3px);
-    border-color:rgba(169,125,171,0.35);
-    box-shadow:0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 40px -16px rgba(0,0,0,0.7);
-  }
-  .ssh-card-head{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:12px;
-  }
-  .ssh-card-id{display:flex;gap:10px;align-items:flex-start;min-width:0;}
-  .ssh-badge{
-    width:36px;height:36px;
-    border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--font-display);
-    font-weight:600;
-    font-size:15px;
-    flex-shrink:0;
-    border:1px solid;
-  }
-  .ssh-id-text{min-width:0;}
-  .ssh-id-text .name{
-    font-family:var(--font-display);
-    font-size:15.5px;
-    font-weight:600;
-    color:var(--ink);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-  .ssh-id-text .host{
-    font-size:11.5px;
-    color:var(--ink-faint);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    margin-top:2px;
-  }
-  .ssh-card-conn{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:12px;
-    padding:10px 12px;
-    background:rgba(0,0,0,0.18);
-    border:1px solid var(--border);
-    border-radius:var(--radius-md);
-    color:var(--accent);
-    font-family:var(--font-mono);
-    font-size:12px;
-    text-decoration:none;
-    transition:border-color .15s, background .15s, color .15s;
-  }
-  .ssh-card-conn:hover{border-color:var(--border-strong);background:rgba(0,0,0,0.28);color:var(--ink);}
-  .ssh-card-conn svg{width:14px;height:14px;stroke:currentColor;flex-shrink:0;}
-  .ssh-card-conn span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .ssh-pass-row{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    margin-top:8px;
-    padding:10px 12px;
-    background:rgba(0,0,0,0.18);
-    border:1px solid var(--border);
-    border-radius:var(--radius-md);
-  }
-  .ssh-pass-label{
-    font-size:11px;
-    color:var(--ink-faint);
-    letter-spacing:0.04em;
-    text-transform:uppercase;
-    min-width:60px;
-  }
-  .ssh-pass-value{
-    flex:1;
-    font-family:var(--font-mono);
-    font-size:13px;
-    color:var(--ink);
-    letter-spacing:0.02em;
-  }
-  .ssh-pass-toggle{
-    display:flex;align-items:center;justify-content:center;
-    width:32px;height:32px;
-    border-radius:8px;
-    border:1px solid var(--border-strong);
-    background:var(--panel);
-    color:var(--ink-dim);
-    cursor:pointer;
-    transition:color .15s, border-color .15s, background .15s;
-  }
-  .ssh-pass-toggle svg{width:14px;height:14px;stroke:currentColor;}
-  .ssh-pass-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
-  .ssh-copy-btn{
-    display:flex;align-items:center;justify-content:center;
-    width:32px;height:32px;
-    border-radius:8px;
-    border:1px solid var(--border-strong);
-    background:var(--panel);
-    color:var(--ink-dim);
-    cursor:pointer;
-    transition:color .15s, border-color .15s, background .15s;
-  }
-  .ssh-copy-btn svg{width:14px;height:14px;stroke:currentColor;}
-  .ssh-copy-btn:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);}
-  .ssh-copy-btn.done{color:var(--success);border-color:var(--success);background:var(--success-soft);}
-  .ssh-card-foot{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:8px;
-    margin-top:10px;
-  }
-  .ssh-tags{
-    font-size:10px;
-    color:var(--ink-faint);
-    letter-spacing:0.03em;
-  }
-  .ssh-card-tools{display:flex;gap:6px;margin-left:auto;}
-  .ssh-key-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:4px;
-    font-size:10px;
-    padding:2px 6px;
-    border-radius:4px;
-    background:var(--accent-soft);
-    color:var(--accent);
-    border:1px solid var(--border-strong);
-    margin-right:6px;
-  }
-
   /* ---------- Empty state ---------- */
   .empty{
     grid-column:1/-1;
@@ -916,7 +772,7 @@
     <div class="top-actions">
       <div class="search-box">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input id="searchInput" type="text" placeholder="搜索名称、主机、账户…">
+        <input id="searchInput" type="text" placeholder="搜索发行方或账户…">
       </div>
       <button class="btn btn-primary" id="addBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
@@ -934,10 +790,6 @@
       <button class="tab-btn" data-tab="web" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3M21 3v6h-6"/></svg>
         网址账号
-      </button>
-      <button class="tab-btn" data-tab="ssh" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M6 12h12M10 8v8"/></svg>
-        SSH 主机
       </button>
     </div>
     <div class="count-pill" id="countPill">共 <b>0</b> 个条目</div>
@@ -1055,54 +907,6 @@
       <div class="modal-actions">
         <button type="button" class="btn btn-ghost" id="webFormCancel">取消</button>
         <button type="submit" class="btn btn-primary" id="webFormSave">保存</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- Add / Edit SSH Host modal -->
-<div class="overlay" id="sshFormOverlay">
-  <div class="modal">
-    <h3><span id="sshFormTitle">新增 SSH 主机</span><span class="x" id="sshFormClose"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></span></h3>
-    <form id="sshHostForm">
-      <div class="field" id="sf-name">
-        <label>名称 / 标签</label>
-        <input type="text" id="in-ssh-name" placeholder="例如 生产服务器、跳板机、GitHub">
-      </div>
-      <div class="field" id="sf-host">
-        <label>主机地址</label>
-        <input type="text" id="in-ssh-host" placeholder="192.168.1.100 或 example.com">
-        <div class="err-text">请填写主机地址</div>
-      </div>
-      <div class="field" id="sf-port" style="margin-bottom:0;">
-        <label>端口</label>
-        <input type="number" id="in-ssh-port" value="22" min="1" max="65535">
-      </div>
-      <div class="field" id="sf-user">
-        <label>用户名</label>
-        <input type="text" id="in-ssh-user" placeholder="root、ubuntu、admin">
-      </div>
-      <div class="field" id="sf-key">
-        <label>密钥路径（可选，用于免密登录）</label>
-        <input type="text" id="in-ssh-key" placeholder="~/.ssh/id_rsa_prod 或 C:\\Users\\name\\.ssh\\id_rsa">
-        <div class="hint">留空则使用密码登录；填写后生成的 ssh:// 链接会附带 -i 参数提示</div>
-      </div>
-      <div class="field" id="sf-password">
-        <label>密码（可选，明文存储）</label>
-        <div style="display:flex;gap:8px;">
-          <input type="password" id="in-ssh-password" placeholder="输入密码" style="flex:1;">
-          <button type="button" class="icon-btn" id="toggleSshPass" aria-label="显示/隐藏密码">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="field" id="sf-tags">
-        <label>标签（可选，逗号分隔）</label>
-        <input type="text" id="in-ssh-tags" placeholder="生产环境,跳板机,数据库">
-      </div>
-      <div class="modal-actions">
-        <button type="button" class="btn btn-ghost" id="sshFormCancel">取消</button>
-        <button type="submit" class="btn btn-primary" id="sshFormSave">保存</button>
       </div>
     </form>
   </div>
