@@ -1,0 +1,8 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\Classes\ssh]
+"URL Protocol"=""
+@="URL:SSH Protocol"
+
+[HKEY_CURRENT_USER\Software\Classes\ssh\shell\open\command]
+@="\"C:\\terminal-1.24.11911.0\\WindowsTerminal.exe\" ssh %1"
